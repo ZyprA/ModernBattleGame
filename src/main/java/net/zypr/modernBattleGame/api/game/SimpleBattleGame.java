@@ -29,6 +29,7 @@ public class SimpleBattleGame<T extends GamePlayer> implements BattleGame<T> {
         return name;
     }
 
+
     @Override
     public Timer getTimer() {
         return timer;

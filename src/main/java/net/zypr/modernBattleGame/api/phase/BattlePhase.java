@@ -12,6 +12,5 @@ public interface BattlePhase<T extends GamePlayer> {
     Timer timer();
 
     Consumer<BattleGame<T>> getInitialExecution();
-
     Function<BattleGame<T>, Boolean> getExecution();
 }

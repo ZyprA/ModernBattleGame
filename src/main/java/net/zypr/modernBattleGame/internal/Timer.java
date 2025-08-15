@@ -1,8 +1,8 @@
 package net.zypr.modernBattleGame.internal;
 
 public class Timer {
-    private final int duration;
     private int tick = 0;
+    private final int duration;
 
     public Timer(int duration) {
         this.duration = duration;

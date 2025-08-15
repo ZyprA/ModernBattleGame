@@ -30,14 +30,9 @@ public enum ColorGameTeam implements GameTeam {
     }
 
     @Override
-    public String getName() {
-        return name;
-    }
-
+    public String getName() { return name; }
     @Override
-    public Component getDisplayName() {
-        return displayName;
-    }
+    public Component getDisplayName() { return displayName; }
 
     @Override
     public @NotNull ChatColor getColor() {
