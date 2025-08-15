@@ -12,7 +12,7 @@ import java.util.HashSet;
 
 public class EventStreamer implements Listener {
 
-    private static void on(JavaPlugin plugin) {
+    public static void on(JavaPlugin plugin) {
         plugin.getServer().getPluginManager().registerEvents(new EventStreamer(), plugin);
     }
 
