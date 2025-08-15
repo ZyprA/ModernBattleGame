@@ -1,7 +1,6 @@
 package net.zypr.modernBattleGame.internal;
 
 import net.zypr.modernBattleGame.api.game.BattleGame;
-import net.zypr.modernBattleGame.api.player.GamePlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -9,10 +8,10 @@ import org.bukkit.scheduler.BukkitRunnable;
 public class BattleGameScheduler {
     private int taskId = -1;
     private final JavaPlugin plugin;
-    private final BattleGame<? extends GamePlayer> battleGame;
+    private final BattleGame battleGame;
 
 
-    public BattleGameScheduler(BattleGame<? extends GamePlayer> battleGame, JavaPlugin plugin) {
+    public BattleGameScheduler(BattleGame battleGame, JavaPlugin plugin) {
         this.plugin = plugin;
         this.battleGame = battleGame;
     }

@@ -7,7 +7,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class ModernBattleGameExecutor {
     private final BattleGameScheduler battleGameScheduler;
 
-    public ModernBattleGameExecutor(BattleGame<?> battleGame, JavaPlugin plugin) {
+    public ModernBattleGameExecutor(BattleGame battleGame, JavaPlugin plugin) {
         this.battleGameScheduler = new BattleGameScheduler(battleGame, plugin);
     }
 

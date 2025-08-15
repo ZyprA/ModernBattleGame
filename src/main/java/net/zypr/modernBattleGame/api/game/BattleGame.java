@@ -7,16 +7,17 @@ import net.zypr.modernBattleGame.api.player.GamePlayer;
 
 import java.util.List;
 
-public interface BattleGame<T extends GamePlayer> {
+public interface BattleGame {
 
-    static BattleGame<GamePlayer> of(String name, List<BattlePhase<GamePlayer>> battlePhaseList, Timer timer, List<GamePlayer> gamePlayers, Runnable gameTerminatedExecution) {
-        return new SimpleBattleGame<>(name, battlePhaseList, timer, gamePlayers, gameTerminatedExecution);
+    static BattleGame of(String name, List<BattlePhase> battlePhaseList, Timer timer, List<GamePlayer> gamePlayers, Runnable gameTerminatedExecution) {
+        return new SimpleBattleGame(name, battlePhaseList, timer, gamePlayers, gameTerminatedExecution);
     }
 
 
     String getName();
-    List<T> getGamePlayers();
+    List<GamePlayer> getGamePlayers();
     Timer getTimer();
-    BattlePhaseScheduler<T> getBattlePhaseScheduler();
+    List<BattlePhase> getBattlePhaseList();
+    BattlePhaseScheduler getBattlePhaseScheduler();
     void onGameEnd();
 }
