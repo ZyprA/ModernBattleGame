@@ -1,6 +1,0 @@
-name: ModernBattleGame
-version: '1.0-SNAPSHOT'
-main: net.zypr.modernBattleGame.ModernBattleGame
-api-version: '1.21'
-authors: [ ZyprA ]
-description: Disguise Zombie plugin
