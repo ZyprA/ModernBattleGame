@@ -21,7 +21,7 @@ public class EventStreamer implements Listener {
     @EventHandler
     void onPlayerDamageEvent(GamePlayerDamageEvent gamePlayerDamageEvent) {
 
-        phaseSchedulers.stream().filter(phaseScheduler -> phaseScheduler.getPhase() instanceof PlayerDamageListener).filter(battlePhaseScheduler->gamePlayerDamageEvent.isValid(battlePhaseScheduler.getGamePlayers())).map(PlayerDamageListener.class::cast).forEach(e -> e.receive(gamePlayerDamageEvent));
+        phaseSchedulers.stream().filter(phaseScheduler -> phaseScheduler.getPhase() instanceof PlayerDamageListener).filter(battlePhaseScheduler->gamePlayerDamageEvent.isValid(battlePhaseScheduler.getGamePlayers())).map(BattlePhaseScheduler::getPhase).map(PlayerDamageListener.class::cast).forEach(e -> e.receive(gamePlayerDamageEvent));
     }
 
     public static void register(BattlePhaseScheduler<?> battlePhaseScheduler) {
