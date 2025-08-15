@@ -1,16 +1,17 @@
 package net.zypr.modernBattleGame.api.phase;
 
 import net.zypr.modernBattleGame.api.game.BattleGame;
+import net.zypr.modernBattleGame.api.player.GamePlayer;
 import net.zypr.modernBattleGame.internal.Timer;
 
 import java.util.function.Consumer;
 import java.util.function.Function;
 
-public interface BattlePhase<T extends BattleGame<?>> {
+public interface BattlePhase<T extends GamePlayer> {
 
     Timer timer();
 
-    Consumer<T> getInitialExecution();
+    Consumer<BattleGame<T>> getInitialExecution();
 
-    Function<T, Boolean> getExecution();
+    Function<BattleGame<T>, Boolean> getExecution();
 }
