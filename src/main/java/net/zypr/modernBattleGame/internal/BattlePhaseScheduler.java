@@ -5,7 +5,7 @@ import net.zypr.modernBattleGame.api.phase.BattlePhase;
 
 import java.util.List;
 
-public class BattlePhaseScheduler<T extends BattleGame>{
+public class BattlePhaseScheduler<T extends BattleGame<?>>{
     private final T battleGame;
     private final List<BattlePhase<T>> battlePhases;
     private int counter;

@@ -6,7 +6,7 @@ import net.zypr.modernBattleGame.internal.Timer;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
-public final class SimpleBattlePhase<T extends BattleGame> implements BattlePhase<T> {
+public final class SimpleBattlePhase<T extends BattleGame<?>> implements BattlePhase<T> {
     private final Consumer<T> initExecution;
     private final Function<T, Boolean> loopExecution;
     private final Timer timer;

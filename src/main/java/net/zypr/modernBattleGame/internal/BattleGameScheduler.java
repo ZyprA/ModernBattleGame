@@ -11,7 +11,7 @@ public class BattleGameScheduler {
     private final BattleGame battleGame;
 
 
-    public BattleGameScheduler(BattleGame battleGame, JavaPlugin plugin) {
+    public BattleGameScheduler(BattleGame<?> battleGame, JavaPlugin plugin) {
         this.plugin = plugin;
         this.battleGame = battleGame;
     }

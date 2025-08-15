@@ -7,16 +7,16 @@ import net.zypr.modernBattleGame.internal.Timer;
 
 import java.util.List;
 
-public class SimpleBattleGame implements BattleGame {
+public class SimpleBattleGame<T extends GamePlayer> implements BattleGame<T> {
 
 
     private final String name;
     private final Timer timer;
-    private final BattlePhaseScheduler<SimpleBattleGame> battleGameScheduler;
-    private final List<GamePlayer> gamePlayers;
+    private final BattlePhaseScheduler<SimpleBattleGame<T>> battleGameScheduler;
+    private final List<T> gamePlayers;
     private final Runnable gameTerminatedExecution;
 
-    public SimpleBattleGame(String name, List<BattlePhase<SimpleBattleGame>> battlePhases, Timer timer, List<GamePlayer> gamePlayers, Runnable gameTerminatedExecution) {
+    public SimpleBattleGame(String name, List<BattlePhase<SimpleBattleGame<T>>> battlePhases, Timer timer, List<T> gamePlayers, Runnable gameTerminatedExecution) {
         this.name = name;
         this.battleGameScheduler = new BattlePhaseScheduler<>(this, battlePhases);
         this.timer = timer;
@@ -35,12 +35,12 @@ public class SimpleBattleGame implements BattleGame {
     }
 
     @Override
-    public BattlePhaseScheduler<SimpleBattleGame> getBattlePhaseScheduler() {
+    public BattlePhaseScheduler<? extends BattleGame<T>> getBattlePhaseScheduler() {
         return battleGameScheduler;
     }
 
     @Override
-    public List<GamePlayer> getGamePlayers() {
+    public List<T> getGamePlayers() {
         return List.copyOf(gamePlayers);
     }
 
