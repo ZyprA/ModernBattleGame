@@ -5,7 +5,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
-class BattleGameScheduler {
+public class BattleGameScheduler {
     private int taskId = -1;
     private final JavaPlugin plugin;
     private final BattleGame battleGame;
