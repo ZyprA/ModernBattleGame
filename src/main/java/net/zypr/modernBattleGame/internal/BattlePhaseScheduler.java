@@ -2,24 +2,23 @@ package net.zypr.modernBattleGame.internal;
 
 import net.zypr.modernBattleGame.api.game.BattleGame;
 import net.zypr.modernBattleGame.api.phase.BattlePhase;
-import net.zypr.modernBattleGame.api.player.GamePlayer;
 
 import java.util.List;
 
-public class BattlePhaseScheduler{
-    private final BattleGame battleGame;
-    private final List<BattlePhase> battlePhases;
+public class BattlePhaseScheduler<T extends BattleGame>{
+    private final T battleGame;
+    private final List<BattlePhase<T>> battlePhases;
     private int counter;
     private boolean isInit = true;
 
-    public BattlePhaseScheduler(BattleGame battleGame) {
-        this.battlePhases = battleGame.getBattlePhaseList();
+    public BattlePhaseScheduler(T battleGame, List<BattlePhase<T>> battlePhases) {
         this.battleGame = battleGame;
+        this.battlePhases = battlePhases;
         counter = 0;
     }
 
     public boolean execute() {
-        BattlePhase battlePhase = battlePhases.get(counter);
+        BattlePhase<T> battlePhase = battlePhases.get(counter);
         if (isInit) {
             battlePhase.getInitialExecution().accept(battleGame);
             isInit = false;
@@ -35,7 +34,7 @@ public class BattlePhaseScheduler{
         return false;
     }
 
-    public BattlePhase getPhase() {
+    public BattlePhase<T> getPhase() {
         return this.battlePhases.get(counter);
     }
 

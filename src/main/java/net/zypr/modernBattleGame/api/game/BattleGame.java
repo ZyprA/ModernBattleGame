@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface BattleGame {
 
-    static BattleGame of(String name, List<BattlePhase> battlePhaseList, Timer timer, List<GamePlayer> gamePlayers, Runnable gameTerminatedExecution) {
+    static BattleGame of(String name, List<BattlePhase<SimpleBattleGame>> battlePhaseList, Timer timer, List<GamePlayer> gamePlayers, Runnable gameTerminatedExecution) {
         return new SimpleBattleGame(name, battlePhaseList, timer, gamePlayers, gameTerminatedExecution);
     }
 
@@ -17,7 +17,6 @@ public interface BattleGame {
     String getName();
     List<GamePlayer> getGamePlayers();
     Timer getTimer();
-    List<BattlePhase> getBattlePhaseList();
-    BattlePhaseScheduler getBattlePhaseScheduler();
+    BattlePhaseScheduler<? extends BattleGame> getBattlePhaseScheduler();
     void onGameEnd();
 }

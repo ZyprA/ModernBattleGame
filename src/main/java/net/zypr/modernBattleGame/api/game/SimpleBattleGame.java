@@ -11,15 +11,14 @@ public class SimpleBattleGame implements BattleGame {
 
 
     private final String name;
-    private final List<BattlePhase> battlePhases;
     private final Timer timer;
-    private final BattlePhaseScheduler battleGameScheduler = new BattlePhaseScheduler(this);
+    private final BattlePhaseScheduler<SimpleBattleGame> battleGameScheduler;
     private final List<GamePlayer> gamePlayers;
     private final Runnable gameTerminatedExecution;
 
-    public SimpleBattleGame(String name, List<BattlePhase> battlePhases, Timer timer, List<GamePlayer> gamePlayers, Runnable gameTerminatedExecution) {
+    public SimpleBattleGame(String name, List<BattlePhase<SimpleBattleGame>> battlePhases, Timer timer, List<GamePlayer> gamePlayers, Runnable gameTerminatedExecution) {
         this.name = name;
-        this.battlePhases = battlePhases;
+        this.battleGameScheduler = new BattlePhaseScheduler<>(this, battlePhases);
         this.timer = timer;
         this.gamePlayers = gamePlayers;
         this.gameTerminatedExecution = gameTerminatedExecution;
@@ -31,17 +30,12 @@ public class SimpleBattleGame implements BattleGame {
     }
 
     @Override
-    public List<BattlePhase> getBattlePhaseList() {
-        return battlePhases;
-    }
-
-    @Override
     public Timer getTimer() {
         return timer;
     }
 
     @Override
-    public BattlePhaseScheduler getBattlePhaseScheduler() {
+    public BattlePhaseScheduler<SimpleBattleGame> getBattlePhaseScheduler() {
         return battleGameScheduler;
     }
 
