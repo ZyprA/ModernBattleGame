@@ -17,6 +17,7 @@ public class BattleGameScheduler {
     }
 
     public void start() {
+        EventStreamer.register(battleGame.getBattlePhaseScheduler());
         int duration = battleGame.getTimer().getDuration();
         this.taskId = new BukkitRunnable() {
             @Override
@@ -32,6 +33,7 @@ public class BattleGameScheduler {
         if (Bukkit.getScheduler().isCurrentlyRunning(this.taskId)) {
             Bukkit.getScheduler().cancelTask(this.taskId);
         }
+        EventStreamer.unregister(battleGame.getBattlePhaseScheduler());
         this.battleGame.onGameEnd();
     }
 

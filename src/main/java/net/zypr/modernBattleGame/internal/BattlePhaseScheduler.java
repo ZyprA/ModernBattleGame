@@ -2,6 +2,7 @@ package net.zypr.modernBattleGame.internal;
 
 import net.zypr.modernBattleGame.api.game.BattleGame;
 import net.zypr.modernBattleGame.api.phase.BattlePhase;
+import net.zypr.modernBattleGame.api.player.GamePlayer;
 
 import java.util.List;
 
@@ -34,6 +35,7 @@ public class BattlePhaseScheduler<T extends BattleGame<?>>{
         return false;
     }
 
+
     public BattlePhase<T> getPhase() {
         return this.battlePhases.get(counter);
     }
@@ -41,5 +43,7 @@ public class BattlePhaseScheduler<T extends BattleGame<?>>{
     public boolean isTerminated() {
         return (battlePhases.size() <= counter);
     }
+
+    protected List<GamePlayer> getGamePlayers() {return List.of((GamePlayer) battleGame.getGamePlayers());}
 
 }
