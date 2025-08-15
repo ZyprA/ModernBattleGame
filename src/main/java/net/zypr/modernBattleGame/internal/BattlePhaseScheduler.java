@@ -6,12 +6,11 @@ import net.zypr.modernBattleGame.api.player.GamePlayer;
 
 import java.util.List;
 
-public class BattlePhaseScheduler<T extends GamePlayer>{
+public class BattlePhaseScheduler<T extends GamePlayer> {
     private final BattleGame<T> battleGame;
     private final List<BattlePhase<T>> battlePhases;
     private int counter;
     private boolean isInit = true;
-
 
 
     public BattlePhaseScheduler(BattleGame<T> battleGame, List<BattlePhase<T>> battlePhases) {
