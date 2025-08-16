@@ -5,7 +5,7 @@ import net.zypr.modernBattleGame.internal.Timer;
 
 import java.util.List;
 
-public class SimpleBattleGame<T extends GamePlayer> implements BattleGame<T> {
+public class SimpleGameInstance<T extends GamePlayer> implements GameInstance<T> {
 
 
     private final Timer timer;
@@ -13,7 +13,7 @@ public class SimpleBattleGame<T extends GamePlayer> implements BattleGame<T> {
     private final Runnable gameTerminatedExecution;
 
 
-    public SimpleBattleGame(Timer timer, List<T> gamePlayers, Runnable gameTerminatedExecution) {
+    public SimpleGameInstance(Timer timer, List<T> gamePlayers, Runnable gameTerminatedExecution) {
         this.timer = timer;
         this.gamePlayers = gamePlayers;
         this.gameTerminatedExecution = gameTerminatedExecution;

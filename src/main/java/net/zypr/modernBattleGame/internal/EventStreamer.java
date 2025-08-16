@@ -18,19 +18,19 @@ public class EventStreamer implements Listener {
         plugin.getServer().getPluginManager().registerEvents(new EventStreamer(), plugin);
     }
 
-    private static final List<BattlePhaseScheduler<? , ?>> battlePhaseSchedulers = new ArrayList<>();
+    private static final List<GamePhaseScheduler<? , ?>> GAME_PHASE_SCHEDULERS = new ArrayList<>();
 
     @EventHandler
     void onPlayerDamageEvent(GamePlayerDamageEvent gamePlayerDamageEvent) {
 
-        battlePhaseSchedulers.stream().filter(battlePhaseScheduler -> battlePhaseScheduler.getPhase() instanceof PlayerDamageListener).filter(battlePhaseScheduler->gamePlayerDamageEvent.isValid(battlePhaseScheduler.getGamePlayers())).map(BattlePhaseScheduler::getPhase).map(PlayerDamageListener.class::cast).forEach(e -> e.receive(gamePlayerDamageEvent));
+        GAME_PHASE_SCHEDULERS.stream().filter(gamePhaseScheduler -> gamePhaseScheduler.getPhase() instanceof PlayerDamageListener).filter(gamePhaseScheduler ->gamePlayerDamageEvent.isValid(gamePhaseScheduler.getGamePlayers())).map(GamePhaseScheduler::getPhase).map(PlayerDamageListener.class::cast).forEach(e -> e.receive(gamePlayerDamageEvent));
     }
 
-    public static void register(BattlePhaseScheduler<?, ?> battlePhaseScheduler) {
-        battlePhaseSchedulers.add(battlePhaseScheduler);
+    public static void register(GamePhaseScheduler<?, ?> gamePhaseScheduler) {
+        GAME_PHASE_SCHEDULERS.add(gamePhaseScheduler);
     }
 
-    public static void unregister(BattlePhaseScheduler<?, ?> battlePhaseScheduler) {
-        battlePhaseSchedulers.remove(battlePhaseScheduler);
+    public static void unregister(GamePhaseScheduler<?, ?> gamePhaseScheduler) {
+        GAME_PHASE_SCHEDULERS.remove(gamePhaseScheduler);
     }
 }

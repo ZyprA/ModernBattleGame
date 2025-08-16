@@ -1,36 +1,36 @@
 package net.zypr.modernBattleGame.internal;
 
-import net.zypr.modernBattleGame.api.game.BattleGame;
+import net.zypr.modernBattleGame.api.game.GameInstance;
 import net.zypr.modernBattleGame.api.player.GamePlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
-public class BattleGameScheduler<P extends GamePlayer, T extends BattleGame<P>> {
+public class GameScheduler<P extends GamePlayer, T extends GameInstance<P>> {
     private int taskId = -1;
     private final JavaPlugin plugin;
     private final T battleGame;
     private boolean isRunning = false;
-    private final BattlePhaseScheduler<P, T> battlePhaseScheduler;
+    private final GamePhaseScheduler<P, T> gamePhaseScheduler;
 
 
-    public BattleGameScheduler(T battleGame, JavaPlugin plugin, BattlePhaseScheduler<P, T> battlePhaseScheduler) {
+    public GameScheduler(T battleGame, JavaPlugin plugin, GamePhaseScheduler<P, T> gamePhaseScheduler) {
         this.plugin = plugin;
         this.battleGame = battleGame;
-        this.battlePhaseScheduler = battlePhaseScheduler;
+        this.gamePhaseScheduler = gamePhaseScheduler;
     }
 
     public void start() {
         isRunning = true;
-        EventStreamer.register(battlePhaseScheduler);
+        EventStreamer.register(gamePhaseScheduler);
         int duration = battleGame.getGameTick();
         this.taskId = new BukkitRunnable() {
             @Override
             public void run() {
-                battlePhaseScheduler.execute();
+                gamePhaseScheduler.execute();
                 battleGame.getTimer().addTick(duration);
                 battleGame.getTimer().updateClock();
-                if (battlePhaseScheduler.isTerminated()) stop();
+                if (gamePhaseScheduler.isTerminated()) stop();
             }
         }.runTaskTimer(plugin, 0L, duration).getTaskId();
     }
@@ -39,16 +39,16 @@ public class BattleGameScheduler<P extends GamePlayer, T extends BattleGame<P>> 
         if (Bukkit.getScheduler().isCurrentlyRunning(this.taskId)) {
             Bukkit.getScheduler().cancelTask(this.taskId);
         }
-        EventStreamer.unregister(battlePhaseScheduler);
+        EventStreamer.unregister(gamePhaseScheduler);
         this.battleGame.onGameEnd();
         isRunning = false;
     }
 
     public boolean isRunningGame() {
-        return battlePhaseScheduler.isTerminated();
+        return gamePhaseScheduler.isTerminated();
     }
 
-    public BattlePhaseScheduler<P,T> getBattlePhaseScheduler() {
-        return this.battlePhaseScheduler;
+    public GamePhaseScheduler<P,T> getGamePhaseScheduler() {
+        return this.gamePhaseScheduler;
     }
 }

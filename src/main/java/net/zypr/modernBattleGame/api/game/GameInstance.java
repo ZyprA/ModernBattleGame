@@ -5,10 +5,10 @@ import net.zypr.modernBattleGame.api.player.GamePlayer;
 
 import java.util.List;
 
-public interface BattleGame<T extends GamePlayer> {
+public interface GameInstance<T extends GamePlayer> {
 
-    static BattleGame<GamePlayer> of(Timer timer, List<GamePlayer> gamePlayers, Runnable gameTerminatedExecution) {
-        return new SimpleBattleGame<>(timer, gamePlayers, gameTerminatedExecution);
+    static GameInstance<GamePlayer> of(Timer timer, List<GamePlayer> gamePlayers, Runnable gameTerminatedExecution) {
+        return new SimpleGameInstance<>(timer, gamePlayers, gameTerminatedExecution);
     }
 
 
