@@ -10,7 +10,7 @@ import java.util.List;
 public interface BattleGame<T extends GamePlayer> {
 
     static BattleGame<GamePlayer> of(String name, List<BattlePhase<SimpleBattleGame<GamePlayer>>> battlePhaseList, Timer timer, List<GamePlayer> gamePlayers, Runnable gameTerminatedExecution) {
-        return new SimpleBattleGame(name, battlePhaseList, timer, gamePlayers, gameTerminatedExecution);
+        return new SimpleBattleGame<>(name, battlePhaseList, timer, gamePlayers, gameTerminatedExecution);
     }
 
 

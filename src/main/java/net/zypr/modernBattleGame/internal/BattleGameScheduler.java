@@ -8,7 +8,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 public class BattleGameScheduler {
     private int taskId = -1;
     private final JavaPlugin plugin;
-    private final BattleGame battleGame;
+    private final BattleGame<?> battleGame;
 
 
     public BattleGameScheduler(BattleGame<?> battleGame, JavaPlugin plugin) {

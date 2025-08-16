@@ -2,12 +2,10 @@ package net.zypr.modernBattleGame.internal;
 
 import net.zypr.modernBattleGame.api.event.GamePlayerDamageEvent;
 import net.zypr.modernBattleGame.api.event.PlayerDamageListener;
-import net.zypr.modernBattleGame.api.phase.BattlePhase;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.HashMap;
 import java.util.HashSet;
 
 public class EventStreamer implements Listener {
@@ -16,7 +14,7 @@ public class EventStreamer implements Listener {
         plugin.getServer().getPluginManager().registerEvents(new EventStreamer(), plugin);
     }
 
-    private static HashSet<BattlePhaseScheduler<?>> phaseSchedulers = new HashSet<>();
+    private static final HashSet<BattlePhaseScheduler<?>> phaseSchedulers = new HashSet<>();
 
     @EventHandler
     void onPlayerDamageEvent(GamePlayerDamageEvent gamePlayerDamageEvent) {
