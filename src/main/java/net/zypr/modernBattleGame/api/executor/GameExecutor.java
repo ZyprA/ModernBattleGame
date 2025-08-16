@@ -10,11 +10,11 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.util.List;
 
 public class GameExecutor<T extends GameInstance<?>> {
+
     private final GameScheduler<T> gameScheduler;
     private final T gameInstance;
 
     public GameExecutor(T gameInstance, JavaPlugin plugin, List<GamePhase<T>> gamePhaseList) {
-        EventStreamer.on(plugin);
         this.gameInstance = gameInstance;
         this.gameScheduler = new GameScheduler<>(gameInstance, plugin, new GamePhaseScheduler<>(gameInstance, gamePhaseList));
     }
@@ -23,6 +23,7 @@ public class GameExecutor<T extends GameInstance<?>> {
         if (gameScheduler.isRunningGame()) {
             return false;
         }
+
         this.gameScheduler.start();
         return true;
     }
@@ -42,6 +43,8 @@ public class GameExecutor<T extends GameInstance<?>> {
     public GamePhase<T> getPhase() {
         return this.gameScheduler.getGamePhaseScheduler().getPhase();
     }
+
+    public EventStreamer getEventStreamer() {return new EventStreamer(); }
 
 
 }
