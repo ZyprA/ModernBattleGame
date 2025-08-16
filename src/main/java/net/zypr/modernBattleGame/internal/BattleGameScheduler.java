@@ -18,12 +18,13 @@ public class BattleGameScheduler {
 
     public void start() {
         EventStreamer.register(battleGame.getBattlePhaseScheduler());
-        int duration = battleGame.getTimer().getDuration();
+        int duration = battleGame.getGameTick();
         this.taskId = new BukkitRunnable() {
             @Override
             public void run() {
                 battleGame.getBattlePhaseScheduler().execute();
-                battleGame.getTimer().update();
+                battleGame.getTimer().addTick(duration);
+                battleGame.getTimer().updateClock();
                 if (battleGame.getBattlePhaseScheduler().isTerminated()) stop();
             }
         }.runTaskTimer(plugin, 0L, duration).getTaskId();

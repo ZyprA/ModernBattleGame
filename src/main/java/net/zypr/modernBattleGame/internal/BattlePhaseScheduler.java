@@ -31,7 +31,8 @@ public class BattlePhaseScheduler<T extends BattleGame<?>>{
             isInit = true;
             counter++;
         }
-        battlePhase.timer().update();
+        battlePhase.timer().addTick(battleGame.getGameTick());
+        battlePhase.timer().updateClock();
         return false;
     }
 

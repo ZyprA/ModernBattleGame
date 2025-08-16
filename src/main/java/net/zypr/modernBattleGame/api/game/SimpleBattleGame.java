@@ -40,6 +40,11 @@ public class SimpleBattleGame<T extends GamePlayer> implements BattleGame<T> {
     }
 
     @Override
+    public int getGameTick() {
+        return 5;
+    }
+
+    @Override
     public List<T> getGamePlayers() {
         return List.copyOf(gamePlayers);
     }

@@ -2,21 +2,16 @@ package net.zypr.modernBattleGame.internal;
 
 public class Timer {
     private int tick = 0;
-    private final int duration;
+    private boolean clock = false;
 
-    public Timer(int duration) {
-        this.duration = duration;
+    protected void setTick(int tick) {
+        this.tick = tick;
     }
+    protected void addTick(int tick) {
+        this.tick += tick;
+    }
+    protected void updateClock() {this.clock = !this.clock;}
 
-    public int getTick() {
-        return this.tick;
-    }
-
-    public int getDuration() {
-        return this.duration;
-    }
-
-    public void update() {
-        this.tick += duration;
-    }
+    public boolean getClock() {return this.clock;}
+    public int getTick() {return this.tick;}
 }

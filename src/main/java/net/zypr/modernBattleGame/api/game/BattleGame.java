@@ -18,5 +18,6 @@ public interface BattleGame<T extends GamePlayer> {
     List<T> getGamePlayers();
     Timer getTimer();
     BattlePhaseScheduler<? extends BattleGame<T>> getBattlePhaseScheduler();
+    int getGameTick();
     void onGameEnd();
 }
