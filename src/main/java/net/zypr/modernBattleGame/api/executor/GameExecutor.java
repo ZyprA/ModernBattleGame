@@ -10,11 +10,11 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.List;
 
-public class BattleGameExecutor<P extends GamePlayer, T extends GameInstance<P>> {
+public class GameExecutor<P extends GamePlayer, T extends GameInstance<P>> {
     private final GameScheduler<P, T> gameScheduler;
     private final T gameInstance;
 
-    public BattleGameExecutor(T gameInstance, JavaPlugin plugin, List<GamePhase<P, T>> gamePhaseList) {
+    public GameExecutor(T gameInstance, JavaPlugin plugin, List<GamePhase<P, T>> gamePhaseList) {
         EventStreamer.on(plugin);
         this.gameInstance = gameInstance;
         this.gameScheduler = new GameScheduler<>(gameInstance, plugin, new GamePhaseScheduler<>(gameInstance, gamePhaseList));

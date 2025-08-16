@@ -6,13 +6,13 @@ import net.zypr.modernBattleGame.internal.Timer;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
-public final class SimpleBattlePhase<P extends GamePlayer, T extends GameInstance<P>> implements GamePhase<P, T> {
+public final class SimpleGamePhase<P extends GamePlayer, T extends GameInstance<P>> implements GamePhase<P, T> {
     private final Consumer<T> initExecution;
     private final Function<T, Boolean> loopExecution;
     private final Timer timer;
 
-    public SimpleBattlePhase(Consumer<T> initExecution, Function<T, Boolean> loopExecution,
-                             Timer timer) {
+    public SimpleGamePhase(Consumer<T> initExecution, Function<T, Boolean> loopExecution,
+                           Timer timer) {
         this.initExecution = initExecution;
         this.loopExecution = loopExecution;
         this.timer = timer;
