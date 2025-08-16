@@ -9,6 +9,7 @@ public class BattleGameScheduler {
     private int taskId = -1;
     private final JavaPlugin plugin;
     private final BattleGame<?> battleGame;
+    private boolean isRunning = false;
 
 
     public BattleGameScheduler(BattleGame<?> battleGame, JavaPlugin plugin) {
@@ -17,6 +18,7 @@ public class BattleGameScheduler {
     }
 
     public void start() {
+        isRunning = true;
         EventStreamer.register(battleGame.getBattlePhaseScheduler());
         int duration = battleGame.getGameTick();
         this.taskId = new BukkitRunnable() {
@@ -36,9 +38,10 @@ public class BattleGameScheduler {
         }
         EventStreamer.unregister(battleGame.getBattlePhaseScheduler());
         this.battleGame.onGameEnd();
+        isRunning = false;
     }
 
-    public boolean isRunning() {
-        return (Bukkit.getScheduler().isCurrentlyRunning(this.taskId));
+    public boolean isRunningGame() {
+        return battleGame.getBattlePhaseScheduler().isTerminated();
     }
 }
