@@ -2,6 +2,7 @@ package net.zypr.modernBattleGame.internal;
 
 import net.zypr.modernBattleGame.api.game.GameInstance;
 import net.zypr.modernBattleGame.api.phase.GamePhase;
+import net.zypr.modernBattleGame.api.player.GamePlayer;
 
 import java.util.List;
 
@@ -18,9 +19,6 @@ public class GamePhaseScheduler<T extends GameInstance<?>>{
     }
 
     public boolean execute() {
-        if (gamePhases.size() == 0) {
-            return true;
-        }
         GamePhase<T> gamePhase = gamePhases.get(counter);
         if (isInit) {
             gamePhase.getInitialExecution().accept(battleGame);
