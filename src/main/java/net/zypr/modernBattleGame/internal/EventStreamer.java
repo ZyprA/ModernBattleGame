@@ -9,8 +9,11 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.util.HashSet;
 
 public class EventStreamer implements Listener {
+    private static boolean check = false;
 
     public static void on(JavaPlugin plugin) {
+        if (check) return;
+        check = true;
         plugin.getServer().getPluginManager().registerEvents(new EventStreamer(), plugin);
     }
 
