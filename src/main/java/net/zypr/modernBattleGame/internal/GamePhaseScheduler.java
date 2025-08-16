@@ -6,20 +6,20 @@ import net.zypr.modernBattleGame.api.player.GamePlayer;
 
 import java.util.List;
 
-public class GamePhaseScheduler<P extends GamePlayer, T extends GameInstance<P>>{
+public class GamePhaseScheduler<T extends GameInstance<?>>{
     private final T battleGame;
-    private final List<GamePhase<P, T>> gamePhases;
+    private final List<GamePhase<T>> gamePhases;
     private int counter;
     private boolean isInit = true;
 
-    public GamePhaseScheduler(T battleGame, List<GamePhase<P, T>> gamePhases) {
+    public GamePhaseScheduler(T battleGame, List<GamePhase<T>> gamePhases) {
         this.battleGame = battleGame;
         this.gamePhases = gamePhases;
         counter = 0;
     }
 
     public boolean execute() {
-        GamePhase<P, T> gamePhase = gamePhases.get(counter);
+        GamePhase<T> gamePhase = gamePhases.get(counter);
         if (isInit) {
             gamePhase.getInitialExecution().accept(battleGame);
             isInit = false;
@@ -37,14 +37,12 @@ public class GamePhaseScheduler<P extends GamePlayer, T extends GameInstance<P>>
     }
 
 
-    public GamePhase<P, T> getPhase() {
+    public GamePhase<T> getPhase() {
         return this.gamePhases.get(counter);
     }
 
     public boolean isTerminated() {
         return (gamePhases.size() <= counter);
     }
-
-    protected List<P> getGamePlayers() {return battleGame.getGamePlayers();}
 
 }
