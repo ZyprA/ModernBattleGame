@@ -13,10 +13,9 @@ public class GameExecutor<T extends GameInstance<?>> {
     private final GameScheduler<T> gameScheduler;
     private final T gameInstance;
 
-    public GameExecutor(T gameInstance, JavaPlugin plugin, List<GamePhase<T>> gamePhaseList) {
-        EventStreamer.on(plugin);
+    public GameExecutor(T gameInstance, JavaPlugin plugin, List<GamePhase<T>> gamePhaseList, EventStreamer eventStreamer) {
         this.gameInstance = gameInstance;
-        this.gameScheduler = new GameScheduler<>(gameInstance, plugin, new GamePhaseScheduler<>(gameInstance, gamePhaseList));
+        this.gameScheduler = new GameScheduler<>(gameInstance, plugin, new GamePhaseScheduler<>(gameInstance, gamePhaseList), eventStreamer);
     }
 
     public boolean start() {

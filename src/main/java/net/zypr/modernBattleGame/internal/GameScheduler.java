@@ -11,17 +11,19 @@ public class GameScheduler<T extends GameInstance<?>> {
     private final T gameInstance;
     private boolean isRunning = false;
     private final GamePhaseScheduler<T> gamePhaseScheduler;
+    private final EventStreamer eventStreamer;
 
 
-    public GameScheduler(T gameInstance, JavaPlugin plugin, GamePhaseScheduler<T> gamePhaseScheduler) {
+    public GameScheduler(T gameInstance, JavaPlugin plugin, GamePhaseScheduler<T> gamePhaseScheduler, EventStreamer eventStreamer) {
         this.plugin = plugin;
         this.gameInstance = gameInstance;
         this.gamePhaseScheduler = gamePhaseScheduler;
+        this.eventStreamer = eventStreamer;
     }
 
     public void start() {
         isRunning = true;
-        EventStreamer.register(this);
+        eventStreamer.register(this);
         int duration = gameInstance.getGameTick();
         this.taskId = new BukkitRunnable() {
             @Override
@@ -38,7 +40,7 @@ public class GameScheduler<T extends GameInstance<?>> {
         if (Bukkit.getScheduler().isCurrentlyRunning(this.taskId)) {
             Bukkit.getScheduler().cancelTask(this.taskId);
         }
-        EventStreamer.unregister(this);
+        eventStreamer.unregister(this);
         this.gameInstance.onGameEnd();
         isRunning = false;
     }
