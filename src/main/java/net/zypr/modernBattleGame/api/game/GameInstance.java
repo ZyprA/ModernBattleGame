@@ -15,5 +15,4 @@ public interface GameInstance<T extends GamePlayer> {
     List<T> getGamePlayers();
     Timer getTimer();
     int getGameTick();
-    void onGameEnd();
 }

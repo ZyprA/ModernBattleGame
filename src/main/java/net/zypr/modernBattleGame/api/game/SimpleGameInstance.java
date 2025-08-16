@@ -35,8 +35,4 @@ public class SimpleGameInstance<T extends GamePlayer> implements GameInstance<T>
         return List.copyOf(gamePlayers);
     }
 
-    @Override
-    public void onGameEnd() {
-        gameTerminatedExecution.run();
-    }
 }
