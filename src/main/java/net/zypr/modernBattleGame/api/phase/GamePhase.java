@@ -11,5 +11,5 @@ public interface GamePhase<T extends GameInstance<?>> {
     Timer timer();
 
     Consumer<T> getInitialExecution();
-    Function<T, Boolean> getExecution();
+    Function<T, GamePhase<T>> getExecution();
 }

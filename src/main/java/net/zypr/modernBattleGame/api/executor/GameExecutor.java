@@ -14,14 +14,14 @@ public class GameExecutor<T extends GameInstance<?>> {
     private GameScheduler<T> gameScheduler;
     private final T gameInstance;
 
-    public GameExecutor(T gameInstance, JavaPlugin plugin, List<GamePhase<T>> gamePhaseList, EventStreamer eventStreamer) {
+    public GameExecutor(T gameInstance, JavaPlugin plugin, GamePhase<T> firstPhase, EventStreamer eventStreamer) {
         this.gameInstance = gameInstance;
-        this.gameScheduler = new GameScheduler<>(gameInstance, plugin, new GamePhaseScheduler<>(gameInstance, gamePhaseList), eventStreamer);
+        this.gameScheduler = new GameScheduler<>(gameInstance, plugin, new GamePhaseScheduler<>(gameInstance, firstPhase), eventStreamer);
     }
 
-    public GameExecutor(T gameInstance, JavaPlugin plugin, List<GamePhase<T>> gamePhaseList, EventStreamer eventStreamer, GameControllable gameControllable) {
+    public GameExecutor(T gameInstance, JavaPlugin plugin, GamePhase<T> firstPhase, EventStreamer eventStreamer, GameControllable gameControllable) {
         this.gameInstance = gameInstance;
-        this.gameScheduler = new GameScheduler<>(gameInstance, plugin, new GamePhaseScheduler<>(gameInstance, gamePhaseList), eventStreamer, gameControllable);
+        this.gameScheduler = new GameScheduler<>(gameInstance, plugin, new GamePhaseScheduler<>(gameInstance, firstPhase), eventStreamer, gameControllable);
     }
 
     public boolean start() {

@@ -8,28 +8,24 @@ import java.util.List;
 
 public class GamePhaseScheduler<T extends GameInstance<?>>{
     private final T battleGame;
-    private final List<GamePhase<T>> gamePhases;
-    private int counter;
+    private GamePhase<T> gamePhase;
     private boolean isInit = true;
 
-    public GamePhaseScheduler(T battleGame, List<GamePhase<T>> gamePhases) {
+    public GamePhaseScheduler(T battleGame, GamePhase<T> firstPhase) {
         this.battleGame = battleGame;
-        this.gamePhases = gamePhases;
-        counter = 0;
+        this.gamePhase = firstPhase;
     }
 
     public boolean execute() {
-        GamePhase<T> gamePhase = gamePhases.get(counter);
         if (isInit) {
             gamePhase.getInitialExecution().accept(battleGame);
             isInit = false;
         }
-        if (!isTerminated() && gamePhase.getExecution().apply(battleGame)) {
-            if (isTerminated()) {
-                return true;
-            }
+        GamePhase<T> nextGamePhase = gamePhase.getExecution().apply(battleGame);
+        if (nextGamePhase == null) return true; // nullが来たらそこでフェーズを止める
+        if (!nextGamePhase.equals(gamePhase)) { // フェーズが遷移したら
+            gamePhase = nextGamePhase;
             isInit = true;
-            counter++;
         }
         gamePhase.timer().addTick(battleGame.getGameTick());
         gamePhase.timer().updateClock();
@@ -38,11 +34,11 @@ public class GamePhaseScheduler<T extends GameInstance<?>>{
 
 
     public GamePhase<T> getPhase() {
-        return this.gamePhases.get(counter);
+        return this.gamePhase;
     }
 
     public boolean isTerminated() {
-        return (gamePhases.size() <= counter);
+        return (gamePhase == null);
     }
 
 }

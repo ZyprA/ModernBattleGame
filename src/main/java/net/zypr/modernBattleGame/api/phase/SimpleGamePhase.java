@@ -7,10 +7,10 @@ import java.util.function.Function;
 
 public final class SimpleGamePhase<T extends GameInstance<?>> implements GamePhase<T> {
     private final Consumer<T> initExecution;
-    private final Function<T, Boolean> loopExecution;
+    private final Function<T, GamePhase<T>> loopExecution;
     private final Timer timer;
 
-    public SimpleGamePhase(Consumer<T> initExecution, Function<T, Boolean> loopExecution,
+    public SimpleGamePhase(Consumer<T> initExecution, Function<T, GamePhase<T>> loopExecution,
                            Timer timer) {
         this.initExecution = initExecution;
         this.loopExecution = loopExecution;
@@ -23,7 +23,7 @@ public final class SimpleGamePhase<T extends GameInstance<?>> implements GamePha
     }
 
     @Override
-    public Function<T, Boolean> getExecution() {
+    public Function<T, GamePhase<T>> getExecution() {
         return loopExecution;
     }
 
