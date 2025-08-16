@@ -10,10 +10,12 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.Set;
+import java.util.WeakHashMap;
 
 public class EventStreamer implements Listener {
 
-    private final Set<GameScheduler<?>> gameSchedulers = Collections.synchronizedSet(new LinkedHashSet<>());
+    private final Set<GameScheduler<?>> gameSchedulers =
+            Collections.newSetFromMap(new WeakHashMap<>());
 
     public EventStreamer() {
     }
