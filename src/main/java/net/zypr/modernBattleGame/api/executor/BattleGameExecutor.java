@@ -4,11 +4,11 @@ import net.zypr.modernBattleGame.api.game.BattleGame;
 import net.zypr.modernBattleGame.internal.BattleGameScheduler;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class BattleGameExecutor {
+public class BattleGameExecutor<T extends BattleGame<?>> {
     private final BattleGameScheduler battleGameScheduler;
-    private final BattleGame<?> battleGame;
+    private final T battleGame;
 
-    public BattleGameExecutor(BattleGame<?> battleGame, JavaPlugin plugin) {
+    public BattleGameExecutor(T battleGame, JavaPlugin plugin) {
         this.battleGame = battleGame;
         this.battleGameScheduler = new BattleGameScheduler(battleGame, plugin);
     }
@@ -17,7 +17,7 @@ public class BattleGameExecutor {
         this.battleGameScheduler.start();
     }
 
-    public BattleGame<?> getGameInstance() {
+    public T getGameInstance() {
         return this.battleGame;
     }
 }
