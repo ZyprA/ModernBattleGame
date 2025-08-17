@@ -5,7 +5,6 @@ import net.zypr.modernBattleGame.api.game.GameInstance;
 import net.zypr.modernBattleGame.api.phase.GamePhase;
 import net.zypr.modernBattleGame.internal.GameScheduler;
 import net.zypr.modernBattleGame.internal.GamePhaseScheduler;
-import net.zypr.modernBattleGame.internal.EventStreamer;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.List;
@@ -14,14 +13,14 @@ public class GameExecutor<T extends GameInstance<?>> {
     private GameScheduler<T> gameScheduler;
     private final T gameInstance;
 
-    public GameExecutor(T gameInstance, JavaPlugin plugin, GamePhase<T> firstPhase, EventStreamer eventStreamer) {
+    public GameExecutor(T gameInstance, JavaPlugin plugin, GamePhase<T> firstPhase) {
         this.gameInstance = gameInstance;
-        this.gameScheduler = new GameScheduler<>(gameInstance, plugin, new GamePhaseScheduler<>(gameInstance, firstPhase), eventStreamer);
+        this.gameScheduler = new GameScheduler<>(gameInstance, plugin, new GamePhaseScheduler<>(gameInstance, firstPhase, plugin));
     }
 
-    public GameExecutor(T gameInstance, JavaPlugin plugin, GamePhase<T> firstPhase, EventStreamer eventStreamer, GameControllable gameControllable) {
+    public GameExecutor(T gameInstance, JavaPlugin plugin, GamePhase<T> firstPhase, GameControllable gameControllable) {
         this.gameInstance = gameInstance;
-        this.gameScheduler = new GameScheduler<>(gameInstance, plugin, new GamePhaseScheduler<>(gameInstance, firstPhase), eventStreamer, gameControllable);
+        this.gameScheduler = new GameScheduler<>(gameInstance, plugin, new GamePhaseScheduler<>(gameInstance, firstPhase, plugin), gameControllable);
     }
 
     public boolean start() {
