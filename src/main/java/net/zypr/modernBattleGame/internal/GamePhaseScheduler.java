@@ -22,8 +22,7 @@ public class GamePhaseScheduler<T extends GameInstance<?>>{
             isInit = false;
         }
         GamePhase<T> nextGamePhase = gamePhase.getExecution().apply(battleGame);
-        if (nextGamePhase == null) return true; // nullが来たらそこでフェーズを止める
-        if (!nextGamePhase.equals(gamePhase)) { // フェーズが遷移したら
+        if (!nextGamePhase.equals(gamePhase)) {
             gamePhase = nextGamePhase;
             isInit = true;
         }
