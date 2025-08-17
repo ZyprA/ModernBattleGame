@@ -18,9 +18,12 @@ public class GamePhaseScheduler<T extends GameInstance<?>>{
 
     public boolean execute() {
         if (isInit) {
-            gamePhase.getInitialExecution().accept(battleGame);
+            if (gamePhase.getInitialExecution() != null) {
+                gamePhase.getInitialExecution().accept(battleGame);
+            }
             isInit = false;
         }
+        if (gamePhase.getExecution() == null) return true;
         GamePhase<T> nextGamePhase = gamePhase.getExecution().apply(battleGame);
         if (nextGamePhase == null) return true;
         if (!nextGamePhase.equals(gamePhase)) {
