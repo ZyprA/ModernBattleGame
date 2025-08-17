@@ -52,10 +52,6 @@ public class GameScheduler<T extends GameInstance<?>> {
         eventStreamer.unregister(this);
         isRunning = false;
 
-        gameInstance = null;
-        gamePhaseScheduler = null;
-        eventStreamer = null;
-
         new BukkitRunnable() {
             @Override
             public void run() {

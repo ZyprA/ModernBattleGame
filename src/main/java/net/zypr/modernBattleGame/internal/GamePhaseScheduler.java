@@ -22,6 +22,7 @@ public class GamePhaseScheduler<T extends GameInstance<?>>{
             isInit = false;
         }
         GamePhase<T> nextGamePhase = gamePhase.getExecution().apply(battleGame);
+        if (nextGamePhase == null) return true;
         if (!nextGamePhase.equals(gamePhase)) {
             gamePhase = nextGamePhase;
             isInit = true;
