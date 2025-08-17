@@ -1,7 +1,7 @@
 package net.zypr.modernBattleGame.api.team;
 
 import net.kyori.adventure.text.Component;
-import org.bukkit.ChatColor;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -10,9 +10,9 @@ import java.util.Arrays;
 public interface GameTeam {
     @NotNull String getName();
     @NotNull Component getDisplayName();
-    @NotNull ChatColor getColor();
+    @NotNull NamedTextColor getColor();
 
-    @NotNull static SimpleGameTeam of(String name, Component displayName, ChatColor color) {
+    @NotNull static SimpleGameTeam of(String name, Component displayName, NamedTextColor color) {
         return new SimpleGameTeam(name, displayName, color);
     }
 
