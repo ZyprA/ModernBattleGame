@@ -32,9 +32,21 @@ public class GamePhaseScheduler<T extends GameInstance<?>>{
             }
             isInit = false;
         }
-        if (gamePhase.getExecution() == null) {isTerminated = true; return;}
+        if (gamePhase.getExecution() == null) {
+            if (gamePhase instanceof Listener listener) {
+                HandlerList.unregisterAll(listener);
+            }
+            isTerminated = true;
+            return;
+        }
         GamePhase<T> nextGamePhase = gamePhase.getExecution().apply(battleGame);
-        if (nextGamePhase == null) {isTerminated = true; return;}
+        if (nextGamePhase == null) {
+            if (gamePhase instanceof Listener listener) {
+                HandlerList.unregisterAll(listener);
+            }
+            isTerminated = true;
+            return;
+        }
         if (!nextGamePhase.equals(gamePhase)) {
             if (gamePhase instanceof Listener listener) {
                 HandlerList.unregisterAll(listener);
