@@ -2,7 +2,6 @@ package net.zypr.modernBattleGame.internal;
 
 import net.zypr.modernBattleGame.api.game.GameInstance;
 import net.zypr.modernBattleGame.api.phase.GamePhase;
-import net.zypr.modernBattleGame.api.player.GamePlayer;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -30,9 +29,6 @@ public class GamePhaseScheduler<T extends GameInstance<?>>{
                 listeners = gamePhase.getListeners().apply(battleGame);
                 listeners.forEach(listener -> plugin.getServer().getPluginManager().registerEvents(listener, plugin));
             }
-            if (gamePhase instanceof Listener listener) {
-                plugin.getServer().getPluginManager().registerEvents(listener, plugin);
-            }
             if (gamePhase.getInitialExecution() != null) {
                 gamePhase.getInitialExecution().accept(battleGame);
             }
@@ -40,26 +36,17 @@ public class GamePhaseScheduler<T extends GameInstance<?>>{
         }
         if (gamePhase.getExecution() == null) {
             listeners.forEach(HandlerList::unregisterAll);
-            if (gamePhase instanceof Listener listener) {
-                HandlerList.unregisterAll(listener);
-            }
             isTerminated = true;
             return;
         }
         GamePhase<T> nextGamePhase = gamePhase.getExecution().apply(battleGame);
         if (nextGamePhase == null) {
             listeners.forEach(HandlerList::unregisterAll);
-            if (gamePhase instanceof Listener listener) {
-                HandlerList.unregisterAll(listener);
-            }
             isTerminated = true;
             return;
         }
         if (!nextGamePhase.equals(gamePhase)) {
             listeners.forEach(HandlerList::unregisterAll);
-            if (gamePhase instanceof Listener listener) {
-                HandlerList.unregisterAll(listener);
-            }
             gamePhase = nextGamePhase;
             isInit = true;
         }
